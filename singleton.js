@@ -16,14 +16,44 @@ SingleDog.getInstance = (function () {
   };
 })();
 
-SingleDog.test = (function () {
-  let i = 1;
+function Singleton() {
+  this.instance = null;
+}
 
-  return function () {
-    console.log(i);
-  };
-})();
+Singleton.getInstance = function() {
+  if (this.instance) {
+    return this.instance;
+  }
+  this.instance = new Singleton();
+  return this.instance;
+}
+
+
 
 let s1 = SingleDog.getInstance();
 let s2 = SingleDog.getInstance();
 console.log(s1 === s2);
+
+let s3 = Singleton.getInstance();
+let s4 = Singleton.getInstance();
+
+
+console.log(s3 === s4);
+
+
+function Test() {
+  this.b = 1;
+}
+
+Test.a = 1;
+Test.print = function() {
+  console.log(this.a);
+}
+
+Test.print()
+
+Test.prototype.type = function() {
+  console.log(this.b);
+}
+let t = new Test();
+t.type();
